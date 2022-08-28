@@ -1,0 +1,80 @@
+#login-container{
+  display: flex;
+  margin:auto;
+  padding-top:20px ;
+  width:800px;
+  height: 500px;
+}
+#container>h2{
+  color:indigo;
+  text-align: center;
+  padding-top:20px   ;
+}
+#ngo{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between ;
+  align-items: center;
+  height:400px;
+  width:400px;
+  margin:20px ;
+  border:1px solid indigo;
+  border-radius: 20px;
+  overflow: hidden;
+}
+#ngo>h2{
+  text-align: center;
+
+}
+#user>h2{
+  text-align: center;
+}
+#h2-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+  width: 100%;
+  background-color: indigo;
+}
+#user{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height:400px;
+  width:400px;
+  margin:20px ;
+  border:1px solid indigo;
+  border-radius: 20px;
+  overflow: hidden;
+}
+a{
+  text-decoration: none;
+  border:1px solid indigo;
+  padding:5px 20px;
+  border-radius: 10px;
+  color:indigo;
+  margin:0px 10px;
+
+}
+#a-container{
+  display: flex;
+  width:200px;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+.stroked{
+  border:1px solid blueviolet;
+}
+a:hover{
+  transition: all ease-in-out 0.5s;
+  background-color:indigo;
+  color:white;
+}
+svg{
+  width:100px;
+}
+h2{
+  color: white;
+}

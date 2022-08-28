@@ -1,0 +1,47 @@
+<header>
+  <div id="header">
+  <img src="./assets/images/logo.png" alt="we-logo">
+  <h1>NGO Control Panel</h1>
+</div>
+</header>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div id="nav">
+      <div class="profile-img" *ngIf="authService.adminState$ | async as admin">
+
+        <!-- <img [src]="admin.photoURL ?? '/assets/images/logo.png'"
+        width="240"
+        height="240"
+        > -->
+        <img [src]="admin.photoURL ?? '/assets/images/logo.png'"
+
+        >
+        <div id="btn">
+        <button id="pic-btn" mat-mini-fab color="primary" (click)="inputFile.click()">
+          <mat-icon id="pen">edit</mat-icon></button>
+        <input type="file" #inputFile hidden accept="image/*" value="select image"
+        (change)="submit($event)"
+        >
+      </div>
+      </div>
+    <div id="a-container">
+      <div class="ancor"><a routerLink="/admin/post">Post</a></div>
+      <div class="ancor"><a routerLink="/admin/activities">Activities</a></div>
+      <div class="ancor"><a routerLink="/admin/view">View</a></div>
+      <div class="ancor"><a routerLink="/admin/profile">Profile</a></div>
+    </div>
+    <button id="logout" mat-raised-button (click)="adminLogout()" color="accent">
+      <mat-icon>logout</mat-icon>
+    </button>
+    <button id="btn0" (click)="toggle()" mat-stroked-button color="primary" (click)="drawer.toggle() "><<</button>
+  </div>
+
+  </mat-drawer>
+    <div class="example-sidenav-content">
+      <div id="main">
+        <router-outlet></router-outlet>
+  </div>
+    <button *ngIf="isShown" (click)="toggle()" id="btn" mat-stroked-button color="primary" (click)="drawer.toggle() ">>></button>
+  </div>
+
+</mat-drawer-container>

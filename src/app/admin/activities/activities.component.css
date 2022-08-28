@@ -1,0 +1,9 @@
+table {
+  width: 1000px;
+  max-width: 1000px;
+}
+td{
+  height:100px;
+  max-width: 100px;
+  width:100px
+}

@@ -1,0 +1,52 @@
+<div>
+  <h2>Please Fill All The Fields Below</h2>
+  <h3>Note: All The Fields Are Required</h3>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form" >
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Title</mat-label>
+    <input matInput  formControlName="name"
+      placeholder="Ex. joseph">
+  </mat-form-field>
+
+  <mat-form-field
+  class="example-full-width" appearance="fill">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"
+    placeholder="Description of the activity"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Skills</mat-label>
+    <mat-select formControlName="skills" multiple>
+      <mat-option *ngFor="let skill of skillsList " [value]="skill">{{skill}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+<br>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Start date"
+      >
+      <input matEndDate formControlName="end" placeholder="End date"
+      >
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Number of technologists required</mat-label>
+    <input matInput placeholder="number" type="number" formControlName="noOfTechs">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Add Post</button>
+</form>
+
+
+
+
+
+
+

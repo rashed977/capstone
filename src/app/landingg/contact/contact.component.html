@@ -1,0 +1,21 @@
+
+
+<form [formGroup]="contact" (ngSubmit)="onSubmit()" class="example-form">
+  <h2>Please Fill The Required Fields So We Can Reach You: </h2>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Full Name</mat-label>
+    <input matInput placeholder="Ex. Pizza" formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email"
+          placeholder="Ex. pat@example.com">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Description</mat-label>
+    <textarea matInput placeholder="Ex. It makes me feel..." formControlName="description"></textarea>
+  </mat-form-field>
+  <button mat-flat-button color="primary" [disabled]="contact.invalid">Submit</button>
+</form>
