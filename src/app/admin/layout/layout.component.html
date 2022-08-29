@@ -1,6 +1,7 @@
 <header>
   <div id="header">
   <img src="./assets/images/logo.png" alt="we-logo">
+  <h2 *ngIf="companyService.adminState$ | async as user">Welcome {{user.companyName}}</h2>
   <h1>NGO Control Panel</h1>
 </div>
 </header>

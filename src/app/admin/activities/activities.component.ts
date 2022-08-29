@@ -22,14 +22,14 @@ export class ActivitiesComponent implements OnInit {
   constructor(private postsService:PostsService, private  dialog: MatDialog
     ) {
 
-    this.postsService.getPosts().subscribe((data)=>{
-      this.posts.data=data;
-    })
+    // this.postsService.getPosts().subscribe((data)=>{
+    //   this.posts.data=data;
+    // })
   }
   ngOnInit(): void {
   }
   deletePost(id:string){
-    this.postsService.delete(id).then(()=>{
+    this.postsService.delete(id).subscribe(()=>{
       alert('Post Was Deleted');
     })
   }

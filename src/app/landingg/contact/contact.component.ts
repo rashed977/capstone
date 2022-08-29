@@ -24,7 +24,7 @@ contact=this.fB.group({
 onSubmit(){
   console.log(this.contact.value);
   let contSubmit=this.contact.value as Contact;
-  this.contactService.contact(contSubmit).then(()=>{
+  this.contactService.contact(contSubmit).subscribe(()=>{
     this.navigate()
   })
 }

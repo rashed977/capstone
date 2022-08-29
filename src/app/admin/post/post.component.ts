@@ -24,7 +24,7 @@ export class PostComponent implements OnInit {
     skillsList: string[] = ['Web Development', 'C#', 'JS', 'C++', 'Java',
     'SQL','SoftWare','HardWare'];
 
-@Output() form=this.fb.group({
+form=this.fb.group({
 name:this.fb.control('',Validators.required),
 description:this.fb.control('',Validators.required),
 skills:this.fb.control('skillsList'),
@@ -40,8 +40,7 @@ ngOnInit(): void {
 onSubmit(){
 
   let post=this.form.value as PostForm | any;
-  this.Forms.createPost(post).then(()=>{
-    // this.form.controls.start.setValue(moment(this.form.value.start).format('YYYY-MM-DD'));
+  this.Forms.createPost(post).subscribe(()=>{
     console.log(this.form.controls.start.value);
 
     this.navigateToList()
@@ -57,4 +56,5 @@ this.router.navigate(['admin/activities']);
 
 
 
+    // this.form.controls.start.setValue(moment(this.form.value.start).format('YYYY-MM-DD'));
 

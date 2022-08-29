@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/auth.service';
+import { CompanyService } from 'src/app/company.service';
 import { NgopicService } from 'src/app/ngopic.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class LayoutComponent implements OnInit {
 isShown:boolean=true
 
   constructor(public authService:AuthService, private router:Router,
-    private ngopic:NgopicService, private toast:HotToastService) { }
+    private ngopic:NgopicService, private toast:HotToastService,
+    public companyService:CompanyService) { }
 
   ngOnInit(): void {
   }

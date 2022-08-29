@@ -11,7 +11,7 @@ cards:PostForm[]=[];
 
   constructor(private postsService : PostsService) {
     this.postsService.getPosts().subscribe((data)=>{
-      this.cards=data;
+      // this.cards=data;
     })
   }
   get(){

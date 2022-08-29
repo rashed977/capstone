@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { pipe } from 'rxjs';
+import { pipe, switchMap } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { CompanyService } from '../company.service';
 
 @Component({
   selector: 'app-admin-registration',
@@ -13,7 +14,8 @@ import { AuthService } from '../auth.service';
 export class AdminRegistrationComponent implements OnInit {
 
   constructor(private fb :FormBuilder,private router:Router,
-    private authService:AuthService, private toast:HotToastService) { }
+    private authService:AuthService, private toast:HotToastService,
+    private compnayService:CompanyService) { }
 
 adminRegisterForm=this.fb.group({
   email:['',[Validators.required,Validators.email]],
@@ -39,11 +41,18 @@ submit(){
 const formValue=this.adminRegisterForm.value;
 this.authService.adminSignUp(formValue.email+'',formValue.password+'')
 .pipe(
+  switchMap((data)=>{
+    return this.compnayService.create({
+      uid:data.user?.uid,
+      email:data.user?.email+''
+    })}),
+
 this.toast.observe({
   loading:'Registering User ...',
   success:'Succesfully Registered',
   error:(error)=> 'Error Happened '+error
 })
+
 )
 .subscribe({
   next:()=>{this.router.navigate(['adminlog'])

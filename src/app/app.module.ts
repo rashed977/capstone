@@ -104,11 +104,8 @@ import { UserRegistrationComponent } from './user-registration/user-registration
     MatCardModule,
     MatNativeDateModule,
     MatStepperModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
     HotToastModule.forRoot(),
     AngularFireStorageModule,
-    // provideStorage(() => getStorage())
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,31 +1,41 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestoreCollectionGroup } from '@angular/fire/compat/firestore';
 import { addDoc, collectionData, CollectionReference, deleteDoc, doc, DocumentData, Firestore } from '@angular/fire/firestore';
 import { collection } from '@firebase/firestore';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
-  private contactCollection:CollectionReference<DocumentData>
-  private postsCollection:CollectionReference<DocumentData>
-  constructor(private fireStore:Firestore) {
-    this.postsCollection=collection(this.fireStore,'posts'),
-    this.contactCollection=collection(this.fireStore,'contact')
+  private contactCollection:AngularFirestoreCollection<Contact>
+  private postsCollection:AngularFirestoreCollection<PostForm>
+
+  constructor(private fireStore:AngularFirestore, private authService:AuthService) {
+    this.postsCollection=this.fireStore.collection('posts'),
+    this.contactCollection=this.fireStore.collection('contact')
   }
 
-  getPosts():Observable<PostForm[]>{
-    return collectionData(this.postsCollection,{idField:'id'})as Observable<PostForm[]>
-  }
+  getPosts(){
+    // return collectionData(this.postsCollection,{idField:'id'})as Observable<PostForm[]>
+    return from(this.postsCollection.get())
+
+    }
+
+
   createPost(post:PostForm){
-    return addDoc(this.postsCollection,post)
+    // return addDoc(this.postsCollection,post)
+    return from(this.postsCollection.add(post))
   }
   delete(id:string){
-    const docReference = doc(this.fireStore,'posts/'+id);
-    return deleteDoc(docReference);
+    // const docReference = doc(this.fireStore,'posts/'+id);
+    const docReference = this.postsCollection.doc(id).delete();
+    return from(docReference);
   }
   contact(contact:Contact){
-    return addDoc(this.contactCollection,contact)
+    return from(this.contactCollection.add(contact))
   }
 }
 // export interface Skills{

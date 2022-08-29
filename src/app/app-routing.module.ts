@@ -38,7 +38,7 @@ const routes: Routes = [
 
 {path:'adminlog',component:AdminlogComponent},
 {path:'userlog',component:UserlogComponent},
-{path:'adminSignUp',component:AdminRegistrationComponent,canActivate:[AdminnotloggedGuard]},
+{path:'adminSignUp',component:AdminRegistrationComponent},
 {path:'userSignUp',component:UserRegistrationComponent,canActivate:[UsernotloggedGuard]},
 
   {path:'admin',component:LayoutComponent,canActivate:[AuthGuard],children:[
