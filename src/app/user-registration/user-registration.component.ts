@@ -3,6 +3,8 @@ import { FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from '../auth.service';
+import { UserService } from '../user.service';
+import { pipe, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-user-registration',
@@ -12,7 +14,10 @@ import { AuthService } from '../auth.service';
 export class UserRegistrationComponent implements OnInit {
 
   constructor(private fb :FormBuilder,private router:Router,
-    private authService:AuthService, private toast:HotToastService) { }
+    private authService:AuthService, private toast:HotToastService,
+    private userService:UserService) { }
+
+// formType:string='person'
 
 userRegisterForm=this.fb.group({
   email:['',[Validators.required,Validators.email]],
@@ -38,6 +43,12 @@ submit(){
 const formValue=this.userRegisterForm.value;
 this.authService.personSignUp(formValue.email+'',formValue.password+'')
 .pipe(
+  switchMap((data)=>{
+    return this.userService.create({
+      uid:data.user?.uid,
+      email:data.user?.email+''
+    })}),
+
 this.toast.observe({
   loading:'Registering User ...',
   success:'Succesfully Registered',
@@ -45,7 +56,10 @@ this.toast.observe({
 })
 )
 .subscribe({
-  next:()=>{this.router.navigate(['adminlog'])
+
+  next:()=>{
+
+    this.router.navigate(['adminlog'])
   },
   error:(error)=> alert('Error '+error)
 

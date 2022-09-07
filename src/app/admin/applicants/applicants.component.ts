@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog ,MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { map, switchMap, take } from 'rxjs';
+import { AuthService } from 'src/app/auth.service';
+import { PostsService } from 'src/app/posts.service';
+import { UserService } from 'src/app/user.service';
+import { DialogData } from '../activities/activities.component';
 
 @Component({
   selector: 'app-applicants',
@@ -7,10 +12,48 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./applicants.component.css']
 })
 export class ApplicantsComponent implements OnInit {
-
-  constructor( private  dialog: MatDialog) { }
+  applicants:any[]=[]
+  users:any[]=[]
+  approvedUsers:string[]=[]
+  companyId:any=''
+  constructor( private  dialog: MatDialog, private postsService:PostsService,
+    private userService:UserService,
+    private authService:AuthService, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+    }
 
   ngOnInit(): void {
-  }
+    // this.authService.adminState$.pipe(take(1)).subscribe((data)=>{
+    //   this.companyId=data
+    //   console.log(data?.uid);
+    //   console.log(this.companyId.uid);
+     // })
 
+    this.postsService.getPostAppliedUsers(this.data.activityId).pipe(
+      map((data)=>{
+        data.forEach(data=>{
+          this.userService.getUser(data.id).subscribe((user)=>{
+            this.users.push(user)
+            // console.log(user,'from push');
+
+          })
+        })
+      })
+    ).subscribe(()=>{
+      console.log('users added');
+    })
+    console.log(this.applicants);
+
+
+
+      this.postsService.getPostAppliedUsers(this.data.activityId).subscribe((posts)=>{
+      // console.log(posts);
+      this.applicants=posts
+      })
+    // })
+}
+onApprove(id:string){
+  console.log(id);
+  
+
+}
 }

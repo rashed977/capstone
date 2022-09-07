@@ -80,23 +80,30 @@ div>svg:hover{
 cursor: pointer;
 }
 #main-container{
-  height:100%;
-  width:85%;
+  /* height:1400px; */
+  width:100%;
   top:75px;
   position: relative;
   margin:auto;
 
 }
-#footer-container{
-  display: flex;
-  background-color:rgb(164, 173, 250) ;
-  position: relative;
-  top:75px;
-  width: 100%;
-  margin:auto;
-  border-top:1px solid rgb(202, 201, 201);
+.burger{
+  color:white;
+  z-index: 55;
+  border:1px solid white;
+  /* padding-top:5px; */
+  padding:5px 5px 0px 5px;
+  border-radius: 5px;
 }
-footer>p{
-  text-align: center;
+@media only screen and (max-width:600px){
+  nav{
+    display:none;
+  }
+  .is-open{
+    display: block;
+    position: absolute;
+    width: 100%;
+
+  }
 }
 

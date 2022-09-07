@@ -7,6 +7,9 @@ import { from } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  getPosts(uid: string): any {
+    throw new Error('Method not implemented.');
+  }
 adminState$=this.fireAuth.authState;
 personState$=this.fireAuth.authState;
   // userState$: any;

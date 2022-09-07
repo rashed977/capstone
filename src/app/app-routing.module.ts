@@ -23,6 +23,8 @@ import { AdminnotloggedGuard } from './adminnotlogged.guard';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { UsernotloggedGuard } from './usernotlogged.guard';
 import { UserGuard } from './user.guard';
+import { CompanyGuard } from './company.guard';
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 
 
 const routes: Routes = [
@@ -35,13 +37,14 @@ const routes: Routes = [
   {path:'contact',component:ContactComponent},
   {path:'select',component:SelectComponent},
 ]},
+{path:'not-authorized',component:NotAuthorizedComponent},
 
 {path:'adminlog',component:AdminlogComponent},
 {path:'userlog',component:UserlogComponent},
-{path:'adminSignUp',component:AdminRegistrationComponent},
+{path:'adminSignUp',component:AdminRegistrationComponent,canActivate:[AdminnotloggedGuard]},
 {path:'userSignUp',component:UserRegistrationComponent,canActivate:[UsernotloggedGuard]},
 
-  {path:'admin',component:LayoutComponent,canActivate:[AuthGuard],children:[
+  {path:'admin',component:LayoutComponent,canActivate:[CompanyGuard],children:[
     {path:'post',component:PostComponent},
     {path:'activities',component:ActivitiesComponent},
     {path:'view',component:ViewComponent},

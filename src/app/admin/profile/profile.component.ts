@@ -15,12 +15,14 @@ export class ProfileComponent implements OnInit {
 // companyForm:string[]=[]
   constructor(private postsService:PostsService,private fb :FormBuilder,
     private companyService:CompanyService, private authService:AuthService) {
-    this.postsService.getPosts().subscribe((data)=>{
+    // this.postsService.getPosts().subscribe((data)=>{
       // this.cards=data;
-    })
+    // })
   }
-  types:string[]=['NGO','Government','Religious']
-companyForm = this.fb.group({
+  types:string[]=['NGO','Government','Religious'];
+
+  companyForm = this.fb.group({
+    
   email:['',[Validators.email,Validators.required]],
   companyName:['',[Validators.required]],
   phone:this.fb.control(0,[Validators.required]),

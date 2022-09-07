@@ -1,0 +1,29 @@
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+header{
+  height: 50px;
+  width: 100%;
+  background-color:blueviolet
+}
+#header{
+  /* width:25%; */
+  margin:auto;
+}
+h1{
+  /* margin-top:10px; */
+  text-align: center;
+  color:white
+}
+

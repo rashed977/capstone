@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/auth.service';
+import { UserService } from 'src/app/user.service';
 import { UserpicService } from 'src/app/userpic.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class UserLayoutComponent implements OnInit {
   isShown:boolean=true
 
   constructor(public authService:AuthService, private router:Router,
-    private toast:HotToastService, private userpic:UserpicService) { }
+    private toast:HotToastService, private userpic:UserpicService,
+    public userService:UserService) { }
 
   ngOnInit(): void {
   }

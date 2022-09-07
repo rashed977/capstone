@@ -1,0 +1,27 @@
+<h1>List of Volunteers:</h1>
+<form class="search-container">
+  <input type="text" id="search-bar" name="searchInput" [ngModel]="searchInput"
+  (ngModelChange)="search($event)"
+  placeholder="Search on Volunteers by skills or city...">
+</form>
+<div id="cards-container">
+<mat-card class="example-card" *ngFor="let user of query$ | async">
+  <mat-card-title-group >
+    <mat-card-title>{{user.personName}}</mat-card-title>
+      <mat-card-subtitle>City: {{user.city}}</mat-card-subtitle>
+      <mat-card-subtitle>Email: {{user.email}}</mat-card-subtitle>
+      <mat-card-subtitle>Phone: {{user.phone}}</mat-card-subtitle>
+
+    <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" > -->
+  </mat-card-title-group>
+  <mat-card-content ><br>
+<p>Skills: {{user.skills}}</p>
+<p>Experience: {{user.experience}}</p>
+<p>Courses: {{user.courses}}</p>
+<p>Start Date: {{user.start | date: 'yyyy/MM/dd'}}</p>
+<p>End Date: {{user.end | date: 'yyyy/MM/dd'}}</p>
+
+  </mat-card-content>
+</mat-card>
+
+</div>

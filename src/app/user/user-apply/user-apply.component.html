@@ -1,1 +1,46 @@
-<p>user-apply works!</p>
+<header >
+  <div id="header">
+    <h1>
+      Job Apply
+    </h1>
+  </div>
+  </header>
+
+<form class="example-form" [formGroup]="apply" (ngSubmit)="onApply()">
+
+  <!-- <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <mat-input formControlName="name" type="text" ></mat-input>
+  </mat-form-field> -->
+
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" type="text">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Skill you can vounteer in</mat-label>
+    <mat-select formControlName="skill" multiple>
+      <mat-option *ngFor="let skill of skillsList" [value]="skill">{{skill}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Why you are applying</mat-label>
+    <textarea matInput placeholder="Ex. It makes me feel..."
+    formControlName="comment"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date" formControlName="start">
+      <input matEndDate placeholder="End date" formControlName="end">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit" [disabled]="apply.invalid">Apply</button>
+
+</form>

@@ -1,0 +1,20 @@
+.example-card{
+  margin:20px;
+  width:600px;
+  /* height:300px; */
+  display: flex;
+  justify-content: space-between;
+}
+#cards-container{
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* width: 600px; */
+}
+mat-card-title-group{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+button{
+  margin: 5px;
+}

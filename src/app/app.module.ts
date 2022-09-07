@@ -41,13 +41,17 @@ import { UserlogComponent } from './userlog/userlog.component';
 import { UserLayoutComponent } from './user/user-layout/user-layout.component';
 import { UserApplyComponent } from './user/user-apply/user-apply.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
-import {MatCardModule} from '@angular/material/card';
+import {  MatCardModule} from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AdminRegistrationComponent } from './admin-registration/admin-registration.component';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatStepperModule} from '@angular/material/stepper';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
+import { UserActivitiesComponent } from './user/user-activities/user-activities.component';
+import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+
 
 
 
@@ -73,6 +77,10 @@ import { UserRegistrationComponent } from './user-registration/user-registration
     UserProfileComponent,
     AdminRegistrationComponent,
     UserRegistrationComponent,
+    NotAuthorizedComponent,
+    UserActivitiesComponent,
+
+
 
 
 
@@ -106,6 +114,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
     MatStepperModule,
     HotToastModule.forRoot(),
     AngularFireStorageModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

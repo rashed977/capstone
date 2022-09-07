@@ -9,7 +9,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
   providedIn: 'root'
 })
 export class CompanyService {
-  private companiesCollection: AngularFirestoreCollection<CompanyData>;
+  public companiesCollection: AngularFirestoreCollection<CompanyData>;
   adminState$? : Observable<CompanyData | null | undefined>;
   isLoggedInUserCompany$ = this.authService.adminState$.pipe(
     switchMap((userCredentials)=> {
@@ -44,9 +44,15 @@ export class CompanyService {
       })
     )
   }
+// gatCompnayName(){
+//   return from(this.companiesCollection.doc())
+// }
 
   get(id: string){
     return from(this.companiesCollection.doc<CompanyData>(id).get());
+  }
+  getCompany(id: string){
+    return from(this.companiesCollection.doc<CompanyData>(id).valueChanges());
   }
 
   create(company: CompanyData){
@@ -64,7 +70,7 @@ export class CompanyService {
 
 interface CompanyData {
   uid?: string,
-  companyName?: string
+  companyName?: string,
   email: string,
   phone?: number|undefined | null,
   url?:string,

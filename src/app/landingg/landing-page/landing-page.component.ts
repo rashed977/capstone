@@ -9,8 +9,10 @@ import { Router } from '@angular/router';
 export class LandingPageComponent implements OnInit {
 
   constructor(private router:Router) { }
-
+  isMenuOpen=false
   ngOnInit(): void {
   }
-
+  toggleMenu():void{
+    this.isMenuOpen=!this.isMenuOpen
+  }
 }
