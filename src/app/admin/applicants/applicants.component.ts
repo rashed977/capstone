@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog ,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { map, switchMap, take } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
-import { PostsService } from 'src/app/posts.service';
+import { AppliedUsers, PostsService } from 'src/app/posts.service';
 import { UserService } from 'src/app/user.service';
 import { DialogData } from '../activities/activities.component';
 
@@ -14,7 +14,7 @@ import { DialogData } from '../activities/activities.component';
 export class ApplicantsComponent implements OnInit {
   applicants:any[]=[]
   users:any[]=[]
-  approvedUsers:string[]=[]
+  approvedUsers:any[]=[]
   companyId:any=''
   constructor( private  dialog: MatDialog, private postsService:PostsService,
     private userService:UserService,
@@ -51,9 +51,13 @@ export class ApplicantsComponent implements OnInit {
       })
     // })
 }
-onApprove(id:string){
-  console.log(id);
-  
+onApprove(user:AppliedUsers){
+  console.log(user,'from on approve');
+
+  user.isApproved=true
+  this.postsService.approveApplicant(user,this.data.activityId).subscribe((data)=>{
+
+  })
 
 }
 }

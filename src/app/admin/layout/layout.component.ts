@@ -24,7 +24,7 @@ toggle(){
 }
 adminLogout(){
 this.authService.adminSignOut().subscribe(()=>{
-this.router.navigate([''])
+this.router.navigate(['landingg/about'])
 })
 }
 submit( event: Event){

@@ -38,8 +38,8 @@ skills:this.fb.control(!this.skillsList),
 start:this.fb.control(''),
 end:this.fb.control(''),
 noOfTechs:this.fb.control(0,Validators.required),
-companyName:new FormControl({value:'',disabled: this.disabled}),
-type:new FormControl({value:'',disabled: this.disabled})
+companyName:this.fb.control('',Validators.required),
+type:this.fb.control('',Validators.required)
 })
 
 ngOnInit(): void {

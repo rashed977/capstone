@@ -25,10 +25,11 @@ import { UsernotloggedGuard } from './usernotlogged.guard';
 import { UserGuard } from './user.guard';
 import { CompanyGuard } from './company.guard';
 import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
+import { AppliedActivitiesComponent } from './user/applied-activities/applied-activities.component';
 
 
 const routes: Routes = [
-  {path:'',redirectTo:'landingg/stories',  pathMatch:'full'},
+  {path:'',redirectTo:'landingg/about',  pathMatch:'full'},
 
   {path:'landingg',component:LandingPageComponent,children:[
   {path:'stories',component:OppurtunitiesComponent},
@@ -45,6 +46,7 @@ const routes: Routes = [
 {path:'userSignUp',component:UserRegistrationComponent,canActivate:[UsernotloggedGuard]},
 
   {path:'admin',component:LayoutComponent,canActivate:[CompanyGuard],children:[
+    // {path:'',redirectTo:'post',pathMatch:'full'},
     {path:'post',component:PostComponent},
     {path:'activities',component:ActivitiesComponent},
     {path:'view',component:ViewComponent},
@@ -53,7 +55,7 @@ const routes: Routes = [
 
 {path:'user',component:UserLayoutComponent,canActivate:[UserGuard],children:[
   {path:'user-activities',component:UserActivitiesComponent},
-  {path:'user-apply',component:UserApplyComponent},
+  {path:'applied-activities',component:AppliedActivitiesComponent},
   {path:'user-profile',component:UserProfileComponent},
 
 

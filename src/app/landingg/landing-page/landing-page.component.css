@@ -30,20 +30,29 @@ img{
 nav{
   display:flex;
   justify-content:space-between;
-  width:500px;
+  width:800px;
   z-index: 66;
 }
+#login{
+  font-size: 18px;
+}
 nav>a{
-  display: inline-block;
+  display: block;
   text-decoration:none;
   color:white;
-  font-size: 18px;
+  font-size: 22px;
+}
+#anchors{
+  margin-top: 7px;
+  display: flex;
+  justify-content: space-between;
+  width:400px;
 }
 div>a{
   display: inline-block;
   text-decoration:none;
   color:white;
-  font-size: 22px;
+  font-size: 18px;
   z-index: 2;
 }
   a::after {
@@ -88,6 +97,7 @@ cursor: pointer;
 
 }
 .burger{
+  display: none;
   color:white;
   z-index: 55;
   border:1px solid white;
@@ -101,9 +111,11 @@ cursor: pointer;
   }
   .is-open{
     display: block;
-    position: absolute;
     width: 100%;
 
+  }
+  .burger{
+    display: inline-block;
   }
 }
 

@@ -77,7 +77,12 @@ export class UserService {
   create(person: PersonData){
   return from(this.personsCollection.doc(person.uid).set(person));
   }
-
+// getAppliedPosts(id:string){
+//   return from(this.personsCollection.doc(id).collection<PostForm>)
+// }
+  createApply(id:string|undefined,post:AppliedPosts){
+    return from(this.firestore.collection<PersonData>('persons').doc(id).collection<AppliedPosts>('appliedPosts').add(post))
+  }
   update(profile: PersonData){
     return from(this.personsCollection.doc(profile.uid).update({...profile}));
   }
@@ -98,7 +103,19 @@ export interface PersonData {
   courses?:string,
   start?:string,
   end?:string,
+  appliedPosts?:string[]|any,
 }
 
-
+export interface AppliedPosts{
+  id?:string,
+  companyId:string,
+  name:string,
+  description:string,
+  noOfTechs:number|null|undefined,
+  skills?:string|null|undefined,
+  start:string,
+  end:string,
+  companyName?:string|null|undefined,
+  type?:string|null|undefined,
+}
 

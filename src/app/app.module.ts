@@ -51,6 +51,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 import { UserActivitiesComponent } from './user/user-activities/user-activities.component';
 import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AppliedActivitiesComponent } from './user/applied-activities/applied-activities.component';
 
 
 
@@ -79,6 +80,7 @@ import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
     UserRegistrationComponent,
     NotAuthorizedComponent,
     UserActivitiesComponent,
+    AppliedActivitiesComponent,
 
 
 
@@ -116,7 +118,7 @@ import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
     AngularFireStorageModule,
 
   ],
-  providers: [],
+  providers: [UserApplyComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -15,4 +15,7 @@ export class LandingPageComponent implements OnInit {
   toggleMenu():void{
     this.isMenuOpen=!this.isMenuOpen
   }
+  onClick(){
+    this.router.navigate(['landingg/select'])
+  }
 }

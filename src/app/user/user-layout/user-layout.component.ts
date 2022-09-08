@@ -25,7 +25,7 @@ toggle(){
 }
 personLogout(){
 this.authService.personSignOut().subscribe(()=>{
-this.router.navigate([''])
+this.router.navigate(['landingg/about'])
 })}
 
 submit( event: Event){

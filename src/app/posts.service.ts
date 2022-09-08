@@ -14,7 +14,7 @@ export class PostsService {
   private postsCollection:AngularFirestoreCollection<PostForm>
   private contactCollection:AngularFirestoreCollection<Contact>;
   currentAdminActivities$:Observable<PostForm[] | null | undefined>
-
+  appliedPosts:string[]|any=[]
   constructor(private fireStore:AngularFirestore, private authService:AuthService) {
 
     this.postsCollection=this.fireStore.collection('posts')
@@ -46,28 +46,28 @@ export class PostsService {
     return this.fireStore.collection<PostForm>('posts',ref=> ref.where('companyId','==', companyId)
     ).valueChanges({'idField':'id'}) as Observable<PostForm[]>
     }
-
+    // getpost(id:string){
+    //   return from(this.postsCollection.doc(id).valueChanges())
+    // }
+    getpost(id:string){
+      return this.fireStore.collection<PostForm>('posts').doc(id).valueChanges()
+    }
   userApply(id:string, newPost:AppliedUsers){
     return from(this.fireStore.collection<PostForm>('posts').doc(id).collection('appliedUsers').add(newPost));
   }
   getPostAppliedUsers(id: string){
     return from(this.fireStore.collection<PostForm>('posts').doc(id).collection<AppliedUsers>('appliedUsers').valueChanges());
   }
-  // getPostAppliedUsers(){
-  //   return from(this.fireStore.collection<AppliedUsers>('appliedUsers').valueChanges({'idField':'id'}));
-  // }
+
+  approveApplicant(applicant:AppliedUsers, postId:string){
+    return from(this.postsCollection.doc(postId).collection('appliedUsers').doc(
+      applicant.id).update(applicant))}
 
   createPost(post:PostForm){
     // return addDoc(this.postsCollection,post)
     return from(this.postsCollection.add(post))
   }
 
-  // deletePost(id:string){
-    // const docReference = doc(this.fireStore,'posts/'+id);
-    // const docReference = this.postsCollection.doc(id).delete()
-    // console.log(from(this.postsCollection.doc(id).delete()))
-    // return from(this.postsCollection.doc(id).delete());
-  // }
   deletePost(id:string){
     const docReference = this.postsCollection.doc(id).delete()
     return from(docReference);
@@ -93,6 +93,7 @@ export interface PostForm{
 
 export interface AppliedUsers{
   id:string,
+  isApproved?:boolean| null | undefined,
   name:string,
   skill:string|null|undefined,
   comment:string,

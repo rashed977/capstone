@@ -17,7 +17,6 @@
         height="240"
         > -->
         <img [src]="user.photoURL ?? '/assets/images/profile-placeholder.jpg'"
-
         >
         <div id="btn">
         <button id="pic-btn" mat-mini-fab color="primary" (click)="inputFile.click()">
@@ -30,7 +29,7 @@
 
     <div id="a-container">
       <div class="ancor"><a routerLink="/user/user-activities">Activities</a></div>
-      <div class="ancor"><a routerLink="/user/user-apply">Apply</a></div>
+      <div class="ancor"><a routerLink="/user/applied-activities">Applied Activities</a></div>
       <div class="ancor"><a routerLink="/user/user-profile">Profile</a></div>
     </div>
     <button id="logout" mat-raised-button (click)="personLogout()" color="accent">
