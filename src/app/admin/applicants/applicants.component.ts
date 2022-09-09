@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { DocumentData } from '@angular/fire/firestore';
 import { MatDialog ,MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { TitleStrategy } from '@angular/router';
 import { map, switchMap, take } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { AppliedUsers, PostsService } from 'src/app/posts.service';
@@ -14,7 +16,7 @@ import { DialogData } from '../activities/activities.component';
 export class ApplicantsComponent implements OnInit {
   applicants:any[]=[]
   users:any[]=[]
-  approvedUsers:any[]=[]
+  approvedUsers: any[]=[]
   companyId:any=''
   constructor( private  dialog: MatDialog, private postsService:PostsService,
     private userService:UserService,
@@ -22,42 +24,27 @@ export class ApplicantsComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    // this.authService.adminState$.pipe(take(1)).subscribe((data)=>{
-    //   this.companyId=data
-    //   console.log(data?.uid);
-    //   console.log(this.companyId.uid);
-     // })
-
-    this.postsService.getPostAppliedUsers(this.data.activityId).pipe(
-      map((data)=>{
-        data.forEach(data=>{
-          this.userService.getUser(data.id).subscribe((user)=>{
-            this.users.push(user)
-            // console.log(user,'from push');
-
-          })
-        })
-      })
-    ).subscribe(()=>{
-      console.log('users added');
-    })
-    console.log(this.applicants);
-
-
-
+  this.postsService.getApprovedApplicant(this.data.activityId).subscribe((userData)=>{
+  this.approvedUsers=userData
+    console.log(userData)
+})
       this.postsService.getPostAppliedUsers(this.data.activityId).subscribe((posts)=>{
-      // console.log(posts);
       this.applicants=posts
       })
-    // })
 }
+
 onApprove(user:AppliedUsers){
-  console.log(user,'from on approve');
+  console.log(user.id,'from on approve');
 
   user.isApproved=true
-  this.postsService.approveApplicant(user,this.data.activityId).subscribe((data)=>{
+  this.postsService.approveApplicant(user,this.data.activityId).subscribe(()=>{
+  console.log(this.data.activityId);
+  })
+}
+onReject(userId:AppliedUsers){
+  this.postsService.deleteAppliedUser(this.data.activityId,userId.id).subscribe(()=>{
+    console.log('user deleted');
 
   })
-
 }
 }

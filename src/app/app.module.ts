@@ -24,7 +24,6 @@ import {MatTableModule} from '@angular/material/table';
 import { from } from 'rxjs';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { ContactComponent } from './landingg/contact/contact.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ApplicantsComponent } from './admin/applicants/applicants.component';
@@ -52,6 +51,10 @@ import { NotAuthorizedComponent } from './not-authorized/not-authorized.componen
 import { UserActivitiesComponent } from './user/user-activities/user-activities.component';
 import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { AppliedActivitiesComponent } from './user/applied-activities/applied-activities.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
+import { ChattingComponent } from './user/chatting/chatting.component';
+import {MatDividerModule} from '@angular/material/divider';
+
 
 
 
@@ -81,6 +84,8 @@ import { AppliedActivitiesComponent } from './user/applied-activities/applied-ac
     NotAuthorizedComponent,
     UserActivitiesComponent,
     AppliedActivitiesComponent,
+    ChattingComponent,
+
 
 
 
@@ -116,6 +121,8 @@ import { AppliedActivitiesComponent } from './user/applied-activities/applied-ac
     MatStepperModule,
     HotToastModule.forRoot(),
     AngularFireStorageModule,
+    MatAutocompleteModule,
+    MatDividerModule
 
   ],
   providers: [UserApplyComponent],
@@ -123,5 +130,4 @@ import { AppliedActivitiesComponent } from './user/applied-activities/applied-ac
 })
 export class AppModule { }
 
-// provideFirebaseApp(() => initializeApp(environment.firebase)),
-// provideFirestore(() => getFirestore())
+

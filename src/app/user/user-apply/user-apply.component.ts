@@ -68,6 +68,7 @@ export class UserApplyComponent implements OnInit {
         console.log(data);
 
       })
+      
     this.router.navigate(['user/applied-activities'])
     })
 

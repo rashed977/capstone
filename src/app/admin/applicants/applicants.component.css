@@ -1,6 +1,6 @@
 .example-card{
-  margin:20px;
-  width:600px;
+  margin:10px;
+  width:400px;
   /* height:300px; */
   display: flex;
   justify-content: space-between;
@@ -17,4 +17,13 @@ mat-card-title-group{
 }
 button{
   margin: 5px;
+}
+.container{
+  display: flex;
+}
+.approved-applicants{
+  border-left: 1px solid grey;
+}
+h2{
+  text-align: center;
 }

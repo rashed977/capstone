@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ActivitiesComponent } from './admin/activities/activities.component';
 import { LayoutComponent } from './admin/layout/layout.component';
@@ -26,6 +26,9 @@ import { UserGuard } from './user.guard';
 import { CompanyGuard } from './company.guard';
 import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 import { AppliedActivitiesComponent } from './user/applied-activities/applied-activities.component';
+import { ChattingComponent } from './user/chatting/chatting.component';
+
+
 
 
 const routes: Routes = [
@@ -46,7 +49,6 @@ const routes: Routes = [
 {path:'userSignUp',component:UserRegistrationComponent,canActivate:[UsernotloggedGuard]},
 
   {path:'admin',component:LayoutComponent,canActivate:[CompanyGuard],children:[
-    // {path:'',redirectTo:'post',pathMatch:'full'},
     {path:'post',component:PostComponent},
     {path:'activities',component:ActivitiesComponent},
     {path:'view',component:ViewComponent},
@@ -56,6 +58,7 @@ const routes: Routes = [
 {path:'user',component:UserLayoutComponent,canActivate:[UserGuard],children:[
   {path:'user-activities',component:UserActivitiesComponent},
   {path:'applied-activities',component:AppliedActivitiesComponent},
+  {path:'chat',component:ChattingComponent},
   {path:'user-profile',component:UserProfileComponent},
 
 

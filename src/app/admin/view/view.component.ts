@@ -20,7 +20,6 @@ export class ViewComponent implements OnInit {
   searchText$ = new Subject<string>();
   query$?: Observable<PersonData[]> = this.searchText$
   .pipe(
-
     switchMap((input)=> {
       return this.userService.getUsers()
       .pipe(
@@ -29,9 +28,9 @@ export class ViewComponent implements OnInit {
           console.log(users, 'before filter');
           return users.filter((user)=> {
             let filterCondition = (!input || !(input.length > 0)  ||
-            (user.skills?.includes(input)) ||
-            (user.city?.includes(input)) ||
-            (user.personName?.includes(input)));
+            (user.skills?.toLowerCase().includes(input)) ||
+            (user.city?.toLowerCase().includes(input)) ||
+            (user.personName?.toLowerCase().includes(input)));
             console.log(filterCondition)
             return filterCondition;
           })
@@ -42,12 +41,7 @@ export class ViewComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // this.userService.getUsers().subscribe((user)=>{
-    //   this.users=user
-    //   // console.log(user);
-    // })
     setTimeout(()=> this.searchText$.next(''),100);
-
   }
   search(input: any){
     console.log(input);

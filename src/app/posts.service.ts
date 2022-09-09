@@ -5,6 +5,7 @@ import { collection } from '@firebase/firestore';
 import { from, map, Observable, of, switchMap } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { AuthService } from './auth.service';
+import { formatCurrency } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -53,18 +54,30 @@ export class PostsService {
       return this.fireStore.collection<PostForm>('posts').doc(id).valueChanges()
     }
   userApply(id:string, newPost:AppliedUsers){
-    return from(this.fireStore.collection<PostForm>('posts').doc(id).collection('appliedUsers').add(newPost));
+    return from(this.fireStore.collection<PostForm>('posts').doc(id)
+    .collection('appliedUsers').add(newPost));
   }
   getPostAppliedUsers(id: string){
-    return from(this.fireStore.collection<PostForm>('posts').doc(id).collection<AppliedUsers>('appliedUsers').valueChanges());
+    return from(this.fireStore.collection<PostForm>('posts').doc(id)
+    .collection<AppliedUsers>('appliedUsers',ref=>ref.where('isApproved','==',
+    false)).valueChanges({'idField':'id'}));
   }
 
   approveApplicant(applicant:AppliedUsers, postId:string){
     return from(this.postsCollection.doc(postId).collection('appliedUsers').doc(
-      applicant.id).update(applicant))}
+      applicant.id).update({...applicant}))}
+
+  getApprovedApplicant(postId:string){
+    return from(this.postsCollection.doc(postId).collection('appliedUsers',ref=>
+    ref.where('isApproved','==',true))
+    .valueChanges())
+  }
+  deleteAppliedUser(postId:string, userId:string){
+    return from(this.postsCollection.doc(postId).collection('appliedUsers')
+    .doc(userId).delete())
+  }
 
   createPost(post:PostForm){
-    // return addDoc(this.postsCollection,post)
     return from(this.postsCollection.add(post))
   }
 

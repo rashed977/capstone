@@ -71,7 +71,7 @@ export class UserProfileComponent implements OnInit {
           email:profile.email+'',
           personName:profile.personName+'',
           phone:profile.phone??0,
-          skills:profile.skills,
+          skills:profile.skills+'',
           city:profile.city+'',
           experience:profile.experience+'',
           courses:profile.courses+'',

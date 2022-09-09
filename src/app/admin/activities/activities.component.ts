@@ -35,12 +35,9 @@ export class ActivitiesComponent implements OnInit {
         this.activities = data?.filter((value)=>{
           return value.companyId==userCredentials?.uid
         })
-        console.log(this.activities,'from activities');
         this.posts.data=this.activities ?? [];
       })
     })
-
-    // console.log(this.activities,'from posts');
 
   }
   deletePost(id: string){
@@ -51,10 +48,7 @@ export class ActivitiesComponent implements OnInit {
 
   openDialog(id:string) {
     const dialogRef = this.dialog.open(ApplicantsComponent,
-      {
-        data: {activityId: id}
-      });
-    console.log(id);
+      {data: {activityId: id}});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

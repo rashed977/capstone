@@ -4,11 +4,27 @@ import { Observable } from 'rxjs/internal/Observable';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { AuthService } from './auth.service';
 import { PostForm } from './posts.service';
+import { collection, collectionData, doc, docData, } from '@angular/fire/firestore';
+import { query } from 'express';
+import { Firestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+// for chat
+  get currentUserProfile$(): Observable<PersonData | null> {
+    return this.authService.personState$.pipe(
+      switchMap((user) => {
+        if (!user?.uid) {
+          return of(null);
+        }
+        const ref = this.firestore.collection('persons').doc(user?.uid)
+        return from(ref.valueChanges()) as Observable<PersonData|null>
+      })
+    );
+  }
+//**************************************************************************** */
   public postsCollection:AngularFirestoreCollection<PostForm[]>
   public personsCollection: AngularFirestoreCollection<PersonData>;
   personState$? : Observable<PersonData | null | undefined>;
@@ -50,22 +66,12 @@ export class UserService {
     return from(this.postsCollection.valueChanges())
   }
   getUsers(){
-    return from(this.personsCollection.valueChanges())
-  }
-
-  // getUsersFiltered(search:string | null){
-  //   return (this.firestore.collection('persons', ref=> {
-  //     ref;
-  //     if(search && search.length > 0){
-  //       console.log('querying', search);
-  //       let query =  ref
-  //       .where('personName', '>=', search)
-  //       .where('personName','>=', search); //search
-  //       return query;
-  //     }
-  //     return ref;
-
-  //   }) as AngularFirestoreCollection<PersonData>).valueChanges();
+    return this.personsCollection.valueChanges({'idField':'id'}) as Observable<PersonData[]>
+    }
+  // get AllUsers$(): Observable<PersonData[]> {
+  //   // const ref = collection(this.firestore,'persons')
+  //   const ref= this.firestore.collection('persons')
+  //   return ref.valueChanges() as Observable<PersonData[]>
   // }
 
   get(id: string){
@@ -82,6 +88,9 @@ export class UserService {
 // }
   createApply(id:string|undefined,post:AppliedPosts){
     return from(this.firestore.collection<PersonData>('persons').doc(id).collection<AppliedPosts>('appliedPosts').add(post))
+  }
+  getAppliedPosts(id:string|undefined){
+    return from(this.firestore.collection<PersonData>('persons').doc(id).collection<AppliedPosts>('appliedPosts').valueChanges())
   }
   update(profile: PersonData){
     return from(this.personsCollection.doc(profile.uid).update({...profile}));
@@ -105,6 +114,19 @@ export interface PersonData {
   end?:string,
   appliedPosts?:string[]|any,
 }
+// export interface ProfileUser {
+//   uid: string,
+//   personName?: string,
+//   email: string,
+//   phone?: number|undefined | null,
+//   city?:string,
+//   skills?:any|null|undefined,
+//   experience?:string,
+//   courses?:string,
+//   start?:string,
+//   end?:string,
+//   appliedPosts?:string[]|any,
+// }
 
 export interface AppliedPosts{
   id?:string,

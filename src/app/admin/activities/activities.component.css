@@ -7,3 +7,6 @@ td{
   max-width: 100px;
   width:100px
 }
+mat-divider{
+  margin-top:40px ;
+}

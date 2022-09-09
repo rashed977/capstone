@@ -30,13 +30,12 @@ export class PostComponent implements OnInit {
     'SQL','SoftWare','HardWare'];
 
 form=this.fb.group({
-
 name:this.fb.control('',Validators.required),
 description:this.fb.control('',Validators.required),
-skills:this.fb.control(!this.skillsList),
+skills:this.fb.control('skillsList',Validators.required),
 // skills:this.fb.control(`['one', 'two', 'three', 'four', 'five',]`),
-start:this.fb.control(''),
-end:this.fb.control(''),
+start:this.fb.control('',Validators.required),
+end:this.fb.control('',Validators.required),
 noOfTechs:this.fb.control(0,Validators.required),
 companyName:this.fb.control('',Validators.required),
 type:this.fb.control('',Validators.required)
@@ -45,12 +44,9 @@ type:this.fb.control('',Validators.required)
 ngOnInit(): void {
   this.authService.adminState$.pipe(take(1)).subscribe((data)=>{
     console.log(data?.uid);
-    // this.userId=data?.uid
     if(data?.uid){
-
+      console.log('userCredetials from ng');
       this.companyService.getCompany(data?.uid).subscribe((user) => {
-        // console.log(user?.personName);
-        // console.log(this.userName);
         this.form.patchValue({
           companyName:user?.companyName,
           type:user?.type
@@ -62,11 +58,8 @@ ngOnInit(): void {
 
 onSubmit(){
 
-  // let post=this.form.value as PostForm | any;
-  // this.postsService.createPost(post).subscribe(()=>{
-  //   console.log(this.form.controls.start.value);
-
 this.authService.adminState$.pipe(take(1)).subscribe((userCredetials)=>{
+  console.log('userCredetials');
   if(userCredetials){
     this.postsService.createPost({
       name:this.form.value.name+'',
@@ -80,11 +73,7 @@ this.authService.adminState$.pipe(take(1)).subscribe((userCredetials)=>{
       companyId:userCredetials.uid,
       companyName:this.form.value.companyName+'',
       type:this.form.value.type+''
-
-
     }).subscribe(()=>{
-// console.log(this.form.value.companyName);
-
       this.router.navigate(['admin/activities'])
     })
   }

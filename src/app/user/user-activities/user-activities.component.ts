@@ -7,6 +7,7 @@ import { catchError, map, observable, Observable, of, Subject, switchMap, tap } 
 import { CompanyService } from 'src/app/company.service';
 import { TitleStrategy } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-user-activities',
@@ -19,75 +20,48 @@ export class UserActivitiesComponent implements OnInit {
   'apply'];
 
   constructor(private postsService:PostsService,public dialog: MatDialog,
-    private companyService:CompanyService,private authService:AuthService) {
-//   this.postsService.getPosts(companyId).subscribe((data)=>{
-//   this.userPosts.data=data
-//   console.log(data);
+    private companyService:CompanyService,private authService:AuthService,
+    private fb :FormBuilder) { }
 
-// })
-  }
+    posts?:Observable <PostForm[]>
 
   searchText$ = new Subject<string>();
-  query$: Observable<PostForm[]> = this.searchText$.pipe(
-    tap((data)=> console.log(data,'from tab')),
+  query$?: Observable<PostForm[]> = this.searchText$
+  .pipe(
     switchMap((input)=> {
       return this.postsService.getAllPosts()
-
       .pipe(
         map((posts)=> {
           if(!input) return posts;
           console.log(posts, 'before filter');
           return posts.filter((post)=> {
             let filterCondition = (!input || !(input.length > 0)  ||
-            (post.skills?.toLocaleLowerCase().includes(input)) ||
-            (post.start?.toLowerCase().includes(input)));
+            (post.companyName?.includes(input)) ||
+            // (post.skills?.includes(input)) ||
+            (post.type?.includes(input)) ||
+            (post.start?.includes(input)));
             console.log(filterCondition)
-            // return this.userPosts.data.push(post)
             return filterCondition;
           })
-        }),
-        catchError(()=>  of([]))
-        )
-      }
-      )
-      )
+        }))
+      }))
 
+        searchInput:string=''
 
-  searchInput:string=''
-  posts:string[]=[]
 
   ngOnInit(): void {
-    this.query$.subscribe((data)=> {
-      this.userPosts.data = data;
-    })
-  // this.postsService.getAllPosts().subscribe((data)=>{
-  // this.userPosts.data=data.filter((data)=>{
-  //   if(!this.searchText$){
-  //     return data
-  //   }
-  //   else{
-  //     console.log(data);
+    // this.userPosts.data=this.query$
+    console.log(this.posts);
 
-  //     return data.name?.includes(this.searchInput)
-  //   }
-  // })
-//   console.log(data);
-
-// })
-// console.log(this.posts);
-
-    // setTimeout(()=> this.searchText$.next(''),100);
+    setTimeout(()=> this.searchText$.next(''),100);
   }
-  companyId:string|undefined=''
-  openDialog(id:string) {
-    const dialogRef = this.dialog.open(UserApplyComponent, {
-      data: {activityId: id}
-    });
-    // console.log(id);
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
 
+
+  // companyId:string|undefined=''
+  openDialog(id:string) {
+    const dialogRef = this.dialog.open(UserApplyComponent, {data: {activityId: id}});
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);});
   }
 
   search(input: any){
@@ -95,6 +69,7 @@ export class UserActivitiesComponent implements OnInit {
     this.searchText$.next(input as string);
   }
 }
+
 export interface DialogData {
   activityId: string
 }
