@@ -43,12 +43,26 @@ nav>a{
   font-size: 22px;
 }
 #anchors{
-  margin-top: 7px;
+  margin-top: 13px;
   display: flex;
+  height: 100%;
   justify-content: space-between;
-  width:400px;
+  width:700px;
+  margin-right: 100px;
 }
-div>a{
+#button{
+  position: relative;
+  bottom: 7.5px;
+  left:70px
+}
+#a{
+
+  z-index: 888;
+  display: flex;
+  width:400px;
+  justify-content: space-between;
+}
+#a>a{
   display: inline-block;
   text-decoration:none;
   color:white;
@@ -69,27 +83,8 @@ button{
 a:hover::after{
   width:100%;
 }
-#svg{
-  width:50px;
-  height:50px;
-  background-color: rgba(79, 231, 55, 1);
-  border-radius: 50%;
-  position: fixed;
-  bottom:20px;
-  right:20px;
-  display: flex;
-  justify-content: center;
-}
 
-div>svg{
-  width:25px;
-  align-items: center;
-}
-div>svg:hover{
-cursor: pointer;
-}
 #main-container{
-  /* height:1400px; */
   width:100%;
   top:75px;
   position: relative;
@@ -105,17 +100,42 @@ cursor: pointer;
   padding:5px 5px 0px 5px;
   border-radius: 5px;
 }
-@media only screen and (max-width:600px){
-  nav{
-    display:none;
+@media only screen and (max-width:768px){
+  #button{
+    top:20px;
+    left:150px;
   }
-  .is-open{
+  #anchors.is-open{
     display: block;
     width: 100%;
-
+    left:0%;
   }
+  #a{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 180px;
+    align-items: center;
+  }
+    #anchors{
+      position:fixed;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width:100vw;
+      height:250px;
+      margin-left: 0;
+      flex-direction: column;
+      top:62px;
+      left:-100%;
+      /* transform: translate(50vw , 30px); */
+      background-color: indigo;
+      z-index: 9999;
+    }
   .burger{
     display: inline-block;
+    width:100%
   }
 }
+
 
