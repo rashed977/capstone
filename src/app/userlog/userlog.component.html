@@ -12,8 +12,8 @@
 </div>
 </header>
 <div id="main">
+  <h2>Sign In</h2>
   <form class="example-form" [formGroup]="personLoginForm" (ngSubmit)="personLogin()">
-    <h2>PLease login with your email and password</h2>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Type your email</mat-label>
       <input type="email" matInput formControlName="email"
@@ -34,9 +34,10 @@
     <mat-error *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters</mat-error>
     </mat-form-field>
 <mat-error *ngIf="personStatus">{{personStatus}}</mat-error>
-    <button type="submit" mat-raised-button color="primary"
+    <button class="btn" type="submit" mat-raised-button color="primary"
     [disabled]="personLoginForm.invalid">Login
   <mat-icon>login</mat-icon></button>
   </form>
+  <span>Do not an account? <a routerLink="/userSignUp">Sign Up</a> </span>
 </div>
 

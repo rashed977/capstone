@@ -62,6 +62,10 @@ export class PostsService {
     .collection<AppliedUsers>('appliedUsers',ref=>ref.where('isApproved','==',
     false)).valueChanges({'idField':'id'}));
   }
+  getPostAppliedUser(id: string){
+    return from(this.fireStore.collection<PostForm>('posts',ref=>ref.where('companyId',
+    '==',id)).valueChanges({'idField':'id'}));
+  }
 
   approveApplicant(applicant:AppliedUsers, postId:string){
     return from(this.postsCollection.doc(postId).collection('appliedUsers').doc(

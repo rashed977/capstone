@@ -96,6 +96,9 @@ color:indigo
 #logout{
   margin:5px 0px;
 }
+.icon{
+z-index: 88;
+}
 @media screen and (max-width:340px) {
 
 }

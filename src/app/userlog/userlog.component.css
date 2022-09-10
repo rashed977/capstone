@@ -51,7 +51,41 @@ h1{
 }
 #main{
   position: relative;
-  top:75px;
+  top:125px;
+  margin: auto;
+  width:300px;
+  height: 400px;
+  border:1px solid rgb(204, 202, 202);
+  border-radius: 20px;
+  box-shadow: 10px 5px 5px indigo
+}
+h2{
+  padding-top:10px;
+  text-align: center;
+}
+mat-form-field{
+  width:100%;
+}
+.btn{
+  /* margin: auto; */
+  margin-left:85px;
+  margin-top:10px;
+}
+span{
+  /* text-align: center; */
+  margin-left: 65px;
+}
+span>a{
+  text-decoration: none;
+}
+.example-form {
+  min-width: 150px;
+  /* max-width: 500px; */
+  /* width: 100px; */
+  margin: auto;
+  padding: 20px;
+  /* z-index: 88; */
+
 }
 .example-form {
   min-width: 150px;

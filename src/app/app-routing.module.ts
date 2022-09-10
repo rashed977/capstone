@@ -49,6 +49,7 @@ const routes: Routes = [
 {path:'userSignUp',component:UserRegistrationComponent,canActivate:[UsernotloggedGuard]},
 
   {path:'admin',component:LayoutComponent,canActivate:[CompanyGuard],children:[
+    {path:'',redirectTo:'post',pathMatch:'full'},
     {path:'post',component:PostComponent},
     {path:'activities',component:ActivitiesComponent},
     {path:'view',component:ViewComponent},
@@ -56,12 +57,11 @@ const routes: Routes = [
   ]},
 
 {path:'user',component:UserLayoutComponent,canActivate:[UserGuard],children:[
+  // {path:'',redirectTo:'user-activities',pathMatch:'full'},
   {path:'user-activities',component:UserActivitiesComponent},
   {path:'applied-activities',component:AppliedActivitiesComponent},
   {path:'chat',component:ChattingComponent},
   {path:'user-profile',component:UserProfileComponent},
-
-
 ]}
 ];
 

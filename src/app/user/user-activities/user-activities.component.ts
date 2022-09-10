@@ -23,7 +23,7 @@ export class UserActivitiesComponent implements OnInit {
     private companyService:CompanyService,private authService:AuthService,
     private fb :FormBuilder) { }
 
-    posts?:Observable <PostForm[]>
+    posts?:PostForm[]
 
   searchText$ = new Subject<string>();
   query$?: Observable<PostForm[]> = this.searchText$
@@ -52,7 +52,11 @@ export class UserActivitiesComponent implements OnInit {
   ngOnInit(): void {
     // this.userPosts.data=this.query$
     console.log(this.posts);
-
+    // this.postsService.getAllPosts().subscribe((data=>{
+    //   this.userPosts.data=data
+    // }))
+    // this.posts=this.query$??[]
+    this.userPosts.data=this.posts??[]
     setTimeout(()=> this.searchText$.next(''),100);
   }
 

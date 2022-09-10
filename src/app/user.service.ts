@@ -90,7 +90,8 @@ export class UserService {
     return from(this.firestore.collection<PersonData>('persons').doc(id).collection<AppliedPosts>('appliedPosts').add(post))
   }
   getAppliedPosts(id:string|undefined){
-    return from(this.firestore.collection<PersonData>('persons').doc(id).collection<AppliedPosts>('appliedPosts').valueChanges())
+    return from(this.firestore.collection<PersonData>('persons').doc(id).collection<AppliedPosts>('appliedPosts')
+    .valueChanges({'idField':'id'}))
   }
   update(profile: PersonData){
     return from(this.personsCollection.doc(profile.uid).update({...profile}));

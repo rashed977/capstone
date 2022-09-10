@@ -13,7 +13,8 @@
 </header>
 
 <div id="main">
-<form [formGroup]="userRegisterForm" (ngSubmit)="submit()">
+  <h2>Sign Up</h2>
+<form [formGroup]="userRegisterForm" (ngSubmit)="submit()" class="  .example-form">
   <mat-form-field appearance="fill">
     <mat-label>Email: </mat-label>
     <input type="text" matInput formControlName="email">
@@ -32,12 +33,6 @@
     <mat-error *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters</mat-error>
   </mat-form-field>
 <br>
-  <!-- <mat-form-field>
-    <mat-label>Password: </mat-label>
-    <input type="password" matInput formControlName="password">
-    <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
-    <mat-error *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters</mat-error>
-  </mat-form-field><br> -->
 
   <mat-form-field appearance="fill">
     <mat-label>Confirm Password</mat-label>
@@ -48,19 +43,13 @@
     </button>
     <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
   </mat-form-field>
-<!--
-  <mat-form-field>
-    <mat-label>Confirm Password: </mat-label>
-    <input type="password" matInput formControlName="confirmPassword">
-    <mat-error *ngIf="confirmPassword?.errors?.['required']">Password is required</mat-error>
-  </mat-form-field><br> -->
 
 <br>
   <mat-error *ngIf="userRegisterForm.errors?.['passwordDontMatch']">
     Confirm password don't match the entered password</mat-error>
 
-  <button type="submit" mat-raised-button color="primary"
+  <button class="btn" type="submit" mat-raised-button color="primary"
   [disabled]="userRegisterForm.invalid">Register</button>
 </form>
+<span>Have an account? <a routerLink="/userlog">Sign In</a> </span>
 </div>
-

@@ -18,19 +18,34 @@ import { UserApplyComponent } from '../user-apply/user-apply.component';
 export class AppliedActivitiesComponent implements OnInit {
   posts:MatTableDataSource<PostForm>=new MatTableDataSource<PostForm>([]);
   constructor(private postsService:PostsService,private userService:UserService,
-    private authService:AuthService) {  }
+    private authService:AuthService)
+    {  }
+
     displayedColumns:string[] = ["name","description","start","end","tech no.","skills",
     'status'];
   ngOnInit(): void {
     // this.posts=this.postsService.appliedPosts
     // console.log(this.posts);
     this.authService.personState$.pipe(take(1)).subscribe((userCredentials)=>{
-      this.userService.getAppliedPosts(userCredentials?.uid).pipe(take(1)).subscribe((data)=>{
+      this.userService.getAppliedPosts(userCredentials?.uid).pipe(take(1))
+      .subscribe((data)=>{
         console.log(data);
         this.posts.data=data
+
+        this.postsService
       })
     })
-console.log(this.posts);
+// console.log(this.posts);
+setTimeout(() => {
+  this.onClick
+  }, 200);
+
+  }
+  onClick(companyid:string){
+      return this.postsService.getPosts(companyid).subscribe((data) => {
+      console.log(data);
+      });
+    // console.log(companyid);
 
   }
 
