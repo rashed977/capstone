@@ -3,7 +3,7 @@ import {from, map, of, switchMap} from 'rxjs'
 import { Observable } from 'rxjs/internal/Observable';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { AuthService } from './auth.service';
-import { PostForm } from './posts.service';
+import { AppliedUsers, PostForm } from './posts.service';
 import { collection, collectionData, doc, docData, } from '@angular/fire/firestore';
 import { query } from 'express';
 import { Firestore } from '@angular/fire/firestore';
@@ -87,11 +87,12 @@ export class UserService {
 //   return from(this.personsCollection.doc(id).collection<PostForm>)
 // }
   createApply(id:string|undefined,post:AppliedPosts){
-    return from(this.firestore.collection<PersonData>('persons').doc(id).collection<AppliedPosts>('appliedPosts').add(post))
+    return from(this.firestore.collection<PersonData>('persons').doc(id)
+    .collection<AppliedPosts>('appliedPosts').add(post))
   }
   getAppliedPosts(id:string|undefined){
-    return from(this.firestore.collection<PersonData>('persons').doc(id).collection<AppliedPosts>('appliedPosts')
-    .valueChanges({'idField':'id'}))
+    return this.firestore.collectionGroup<AppliedUsers>('appliedUsers',
+    ref =>  ref.where("userId", "==", id)).valueChanges();
   }
   update(profile: PersonData){
     return from(this.personsCollection.doc(profile.uid).update({...profile}));

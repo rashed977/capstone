@@ -23,7 +23,7 @@ export class UserActivitiesComponent implements OnInit {
     private companyService:CompanyService,private authService:AuthService,
     private fb :FormBuilder) { }
 
-    posts?:PostForm[]
+
 
   searchText$ = new Subject<string>();
   query$?: Observable<PostForm[]> = this.searchText$
@@ -37,33 +37,27 @@ export class UserActivitiesComponent implements OnInit {
           return posts.filter((post)=> {
             let filterCondition = (!input || !(input.length > 0)  ||
             (post.companyName?.includes(input)) ||
-            // (post.skills?.includes(input)) ||
+            (post.name?.includes(input)) ||
             (post.type?.includes(input)) ||
-            (post.start?.includes(input)));
+            (post.description?.includes(input)) ||
+            (post.skills?.includes(input)));
             console.log(filterCondition)
             return filterCondition;
           })
         }))
       }))
-
         searchInput:string=''
 
 
   ngOnInit(): void {
-    // this.userPosts.data=this.query$
-    console.log(this.posts);
-    // this.postsService.getAllPosts().subscribe((data=>{
-    //   this.userPosts.data=data
-    // }))
-    // this.posts=this.query$??[]
-    this.userPosts.data=this.posts??[]
+    this.query$?.subscribe((data=>{
+      this.userPosts.data=data
+    }))
     setTimeout(()=> this.searchText$.next(''),100);
   }
 
-
-  // companyId:string|undefined=''
-  openDialog(id:string) {
-    const dialogRef = this.dialog.open(UserApplyComponent, {data: {activityId: id}});
+  openDialog(id:string, name:string, description: string) {
+    const dialogRef = this.dialog.open(UserApplyComponent, {data: {activityId: id, activityName: name, activityDescription: description}});
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);});
   }
@@ -75,5 +69,7 @@ export class UserActivitiesComponent implements OnInit {
 }
 
 export interface DialogData {
-  activityId: string
+  activityId: string,
+  activityName: string,
+  activityDescription: string
 }

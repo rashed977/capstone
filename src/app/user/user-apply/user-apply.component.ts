@@ -52,15 +52,18 @@ export class UserApplyComponent implements OnInit {
       if(userCredetials){
 
         // console.log(userCredetials.uid)
-          this.postsService.userApply(this.data.activityId,{
-            id:userCredetials.uid,
+          this.postsService.userApply({
+            userId:userCredetials.uid,
+            actvitiyId: this.data.activityId,
             isApproved:this.apply.value.isApproved,
             name:this.apply.value.name+'',
             skill:this.apply.value.skill+'',
             comment:this.apply.value.comment+'',
             start:this.apply.value.start+'',
             end:this.apply.value.end+'',
-        })
+            activityName: this.data.activityName,
+            activityDescription: this.data.activityDescription
+        });
     }
     this.postsService.getpost(this.data.activityId).pipe(take(1)).subscribe((posts)=>{
       if(posts)
@@ -68,7 +71,7 @@ export class UserApplyComponent implements OnInit {
         console.log(data);
 
       })
-      
+
     this.router.navigate(['user/applied-activities'])
     })
 

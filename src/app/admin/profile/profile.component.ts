@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TitleStrategy } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { switchMap } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { CompanyService } from 'src/app/company.service';
@@ -13,7 +14,7 @@ import { PostForm, PostsService } from 'src/app/posts.service';
 })
 export class ProfileComponent implements OnInit {
 // companyForm:string[]=[]
-  constructor(private postsService:PostsService,private fb :FormBuilder,
+  constructor(private postsService:PostsService,private fb :FormBuilder,private toust:HotToastService,
     private companyService:CompanyService, private authService:AuthService) {
     // this.postsService.getPosts().subscribe((data)=>{
       // this.cards=data;
@@ -22,7 +23,7 @@ export class ProfileComponent implements OnInit {
   types:string[]=['NGO','Government','Religious'];
 
   companyForm = this.fb.group({
-    
+
   email:['',[Validators.email,Validators.required]],
   companyName:['',[Validators.required]],
   phone:this.fb.control(0,[Validators.required]),
@@ -59,7 +60,11 @@ this.authService.adminState$.pipe(
     type:this.companyForm.value.types+'',
     url:this.companyForm.value.url+'',
   }))
-).subscribe(()=>{
+).pipe(this.toust.observe({
+  loading:'',
+  success:'Saved',
+  error:(error)=> 'Error Happened '+error
+})).subscribe(()=>{
   console.log('update done...');
   // console.log(this.companyService.adminState$ );
 

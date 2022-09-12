@@ -41,8 +41,8 @@ onApprove(user:AppliedUsers){
   console.log(this.data.activityId);
   })
 }
-onReject(userId:AppliedUsers){
-  this.postsService.deleteAppliedUser(this.data.activityId,userId.id).subscribe(()=>{
+onReject(user:AppliedUsers){
+  this.postsService.deleteAppliedUser(user.id, user.actvitiyId).subscribe(()=>{
     console.log('user deleted');
 
   })

@@ -53,8 +53,8 @@ export class PostsService {
     getpost(id:string){
       return this.fireStore.collection<PostForm>('posts').doc(id).valueChanges()
     }
-  userApply(id:string, newPost:AppliedUsers){
-    return from(this.fireStore.collection<PostForm>('posts').doc(id)
+  userApply(newPost:AppliedUsers){
+    return from(this.fireStore.collection<PostForm>('posts').doc(newPost.actvitiyId)
     .collection('appliedUsers').add(newPost));
   }
   getPostAppliedUsers(id: string){
@@ -76,9 +76,9 @@ export class PostsService {
     ref.where('isApproved','==',true))
     .valueChanges())
   }
-  deleteAppliedUser(postId:string, userId:string){
-    return from(this.postsCollection.doc(postId).collection('appliedUsers')
-    .doc(userId).delete())
+  deleteAppliedUser(id: string | undefined, activityId: string){
+    return from(this.postsCollection.doc(activityId).collection('appliedUsers')
+    .doc(id).delete())
   }
 
   createPost(post:PostForm){
@@ -109,13 +109,17 @@ export interface PostForm{
 }
 
 export interface AppliedUsers{
-  id:string,
+  userId: string,
+  actvitiyId: string,
+  id?:string,
   isApproved?:boolean| null | undefined,
   name:string,
   skill:string|null|undefined,
   comment:string,
   start:string,
-  end:string
+  end:string,
+  activityName: string,
+  activityDescription: string
 }
 
 export interface Contact{
